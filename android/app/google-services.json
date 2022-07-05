@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "553234454556",
+    "project_id": "flyy-invite-earn",
+    "storage_bucket": "flyy-invite-earn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:553234454556:android:82bfc4e865e06c59f167d9",
+        "android_client_info": {
+          "package_name": "com.theflyy.inviteearndemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "553234454556-tlmlrpdkk2toch15vu3i6uoeeijk1fgp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYgSuwfi1Md4vL2oEcQfPEa_ZiChhskm8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "553234454556-tlmlrpdkk2toch15vu3i6uoeeijk1fgp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "553234454556-0u62r9718avtdqllh26dg4ni8hog80ef.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.theflyy.inviteearndemo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
