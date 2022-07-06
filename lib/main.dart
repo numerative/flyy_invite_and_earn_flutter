@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flyy_flutter_plugin/flyy_flutter_plugin.dart';
+import 'package:flyy_invite_earn_flutter/setup_page.dart';
 
 import 'firebase_options.dart';
 
@@ -9,8 +10,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  FlyyFlutterPlugin.setPackageName("com.example.flyyxintegration");
-  FlyyFlutterPlugin.initFlyySDK("35299df860c15c0449c8", FlyyFlutterPlugin.STAGE);
   runApp(const MyApp());
 }
 
@@ -25,39 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'SDK Setup'),
+      home: const SetupPage(),
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Column(
-        children: const [
-          Text("Hello"),
-
-        ],
-      )
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    FlyyFlutterPlugin.setFlyyUser("test_user_1");
   }
 }

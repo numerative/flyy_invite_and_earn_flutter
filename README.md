@@ -1,4 +1,4 @@
-# flyy_invite_earn_flutter
+# Flyy Invite & Earn Flutter
 
 Flyy Invite & Earn Demo for the Flutter Plugin
 
