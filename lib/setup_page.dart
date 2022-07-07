@@ -58,11 +58,11 @@ class _SetupPageState extends State<SetupPage> {
                       bool isValid = validate();
                       setState(() {});
                       if (isValid) {
-                        storeCreds(packageName, partnerId);
-
                         //Init SDK
-                        FlyyFlutterPlugin.initFlyySDK(partnerId, FlyyFlutterPlugin.STAGE);
                         FlyyFlutterPlugin.setPackageName(packageName);
+                        FlyyFlutterPlugin.initFlyySDK(partnerId, FlyyFlutterPlugin.STAGE);
+
+                        storeCreds(packageName, partnerId);
 
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => const SignUpPage()));
