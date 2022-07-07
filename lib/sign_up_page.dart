@@ -11,6 +11,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  late SharedPreferences preferences;
   TextEditingController refCodeController = TextEditingController();
   TextEditingController userIdController = TextEditingController();
   TextEditingController userNameController = TextEditingController();
@@ -80,6 +81,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   bool isValid = validateUserId();
                   setState(() {});
                   if (isValid) {
+                    preferences.setString("user_id", userId);
                     FlyyFlutterPlugin.setFlyyNewUser(userId);
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const HomePage()));
@@ -87,18 +89,16 @@ class _SignUpPageState extends State<SignUpPage> {
                 },
               ),
             ),
-            const SizedBox(height: 16),
-            TextButton(
-              onPressed: () {
-                SharedPreferences.getInstance().then((value) => value.clear());
-                Navigator.of(context).pop();
-              },
-              child: const Text("Reset SDK Connection"),
-            ),
           ],
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initialize();
   }
 
   bool validateReferralCode() {
@@ -142,5 +142,15 @@ class _SignUpPageState extends State<SignUpPage> {
       isValid = true;
     }
     return isValid;
+  }
+
+  void initialize() async {
+    preferences = await SharedPreferences.getInstance();
+    String userId = preferences.getString("user_id") ?? "";
+    if (userId.isNotEmpty) {
+      setState(() {
+        userIdController.text = userId;
+      });
+    }
   }
 }
