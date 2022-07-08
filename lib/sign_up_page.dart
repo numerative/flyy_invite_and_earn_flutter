@@ -4,7 +4,12 @@ import 'package:flyy_invite_earn_flutter/home_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+  const SignUpPage({
+    Key? key,
+    required this.referralCode,
+  }) : super(key: key);
+
+  final ValueNotifier<String> referralCode;
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -99,6 +104,9 @@ class _SignUpPageState extends State<SignUpPage> {
   void initState() {
     super.initState();
     initialize();
+    widget.referralCode.addListener(() {
+      prefillReferralCode();
+    });
   }
 
   bool validateReferralCode() {
@@ -113,23 +121,24 @@ class _SignUpPageState extends State<SignUpPage> {
     return isValid;
   }
 
-  void applyReferral(String referralCode) async {
+  Future<bool> applyReferral(String referralCode) async {
     Map<String, dynamic> response =
         await FlyyFlutterPlugin.verifyReferralCode(referralCode);
     bool isValid = response["is_valid"];
 
     if (isValid) {
       FlyyFlutterPlugin.setFlyyReferralCode(referralCode);
-      if (!mounted) return;
+      if (!mounted) return isValid;
       const snackBar = SnackBar(content: Text("Referral Code Applied"));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
-      if (!mounted) return;
+      if (!mounted) return isValid;
       const snackBar = SnackBar(content: Text("Invalid Referral Code"));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
 
     FlyyFlutterPlugin.setFlyyReferralCode(referralCode);
+    return isValid;
   }
 
   bool validateUserId() {
@@ -142,6 +151,17 @@ class _SignUpPageState extends State<SignUpPage> {
       isValid = true;
     }
     return isValid;
+  }
+
+  /// Gets called if and when the Value Notifier variable receives a Referral
+  /// Code from the [initFlyySDKWithReferralCallback].
+  void prefillReferralCode() async {
+    if (widget.referralCode.value.isNotEmpty) {
+      bool isValid = await applyReferral(widget.referralCode.value);
+      if (isValid) {
+        refCodeController.text = widget.referralCode.value;
+      }
+    }
   }
 
   void initialize() async {

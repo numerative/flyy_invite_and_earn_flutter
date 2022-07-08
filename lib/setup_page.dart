@@ -54,18 +54,24 @@ class _SetupPageState extends State<SetupPage> {
                 ),
                 const SizedBox(height: 24),
                 ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      ValueNotifier<String> referralCode = ValueNotifier("");
                       bool isValid = validate();
                       setState(() {});
                       if (isValid) {
                         //Init SDK
                         FlyyFlutterPlugin.setPackageName(packageName);
-                        FlyyFlutterPlugin.initFlyySDK(partnerId, FlyyFlutterPlugin.STAGE);
-
+                        FlyyFlutterPlugin.initFlyySDKWithReferralCallback(
+                                partnerId, FlyyFlutterPlugin.STAGE)
+                            .then((value) {
+                          referralCode.value = value[0];
+                          setState(() {});
+                        });
                         storeCreds(packageName, partnerId);
 
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const SignUpPage()));
+                            builder: (context) =>
+                                SignUpPage(referralCode: referralCode)));
                       }
                     },
                     child: const Text("Next")),
