@@ -137,7 +137,6 @@ class _SignUpPageState extends State<SignUpPage> {
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
 
-    FlyyFlutterPlugin.setFlyyReferralCode(referralCode);
     return isValid;
   }
 

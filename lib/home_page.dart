@@ -115,6 +115,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   void sendEvent(String text) {
+    //Note: Only use the sendEvent method in Staging. For production, make
+    //an API call from your backend.
+    //See: https://docs.theflyy.com/docs/create-and-track-your-first-offer#send-event-on-checkout
     FlyyFlutterPlugin.sendEvent(eventId, "true");
   }
 
